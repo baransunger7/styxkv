@@ -1,13 +1,15 @@
 #include "styx/storage/hash_table.hpp"
 #include <bit>
 
+#define XXH_INLINE_ALL
+#include "styx/utils/xxhash.h"
+
 namespace styx::storage {
     HashTable::HashTable(size_t initialCapacity) {
-        if (initialCapacity == 0 || (initialCapacity & (initialCapacity - 1)) != 0) {
-            capacity_ = std::bit_ceil(initialCapacity);
-        }else {
-            capacity_ = initialCapacity;
+        if (initialCapacity < 16) {
+            initialCapacity = 16;
         }
+        capacity_ = std::bit_ceil(initialCapacity);
         buckets_.resize(capacity_,nullptr);
     }
     HashTable::~HashTable() {
@@ -77,5 +79,8 @@ namespace styx::storage {
             curr = curr->next;
         }
         return false;
+    }
+    uint64_t HashTable::hashFunc(const std::string &key) const {
+        return XXH64(key.data(), key.size(),0);
     }
 }
