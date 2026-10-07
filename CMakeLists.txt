@@ -12,7 +12,8 @@ add_executable(styxKV
         include/styx/engine/command_dispatcher.hpp
         src/storage/hash_table.cpp
         src/engine/command_dispatcher.cpp
-        include/styx/engine/command.hpp)
+        include/styx/engine/command.hpp
+        include/styx/utils/overloaded.hpp)
 target_include_directories(styxKV PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/include
 )

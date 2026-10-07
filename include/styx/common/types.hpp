@@ -25,6 +25,7 @@ enum class CommandStatus {
     Ok,
     Error,
     NotFound,
+    Empty
 };
 
 struct CommandResult {
