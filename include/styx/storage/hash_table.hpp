@@ -9,11 +9,11 @@ namespace styx::storage {
 
 struct HashNode {
     std::string key;
-    styx::common::DbValue value;
+    styx::common::Entry entry;
     HashNode* next{nullptr};
 
-    HashNode(std::string k, styx::common::DbValue v, HashNode* n = nullptr)
-        :key{std::move(k)}, value{std::move(v)}, next{n}{}
+    HashNode(std::string k, styx::common::Entry e, HashNode* n = nullptr)
+        :key{std::move(k)}, entry{std::move(e)}, next{n}{}
 };
 
 class HashTable {
@@ -23,8 +23,8 @@ public:
     HashTable(const HashTable&) = delete;
     HashTable& operator=(const HashTable&) = delete;
 
-    void set(const std::string& key,common::DbValue value);
-    std::optional<styx::common::DbValue> get(const std::string& key) const;
+    void set(const std::string& key,common::Entry entry);
+    std::optional<styx::common::Entry*> get(const std::string& key) const;
     bool del(const std::string& key);
 
 private:

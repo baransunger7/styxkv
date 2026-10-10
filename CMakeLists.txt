@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 4.3)
 project(styxKV)
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -13,7 +15,16 @@ add_executable(styxKV
         src/storage/hash_table.cpp
         src/engine/command_dispatcher.cpp
         include/styx/engine/command.hpp
-        include/styx/utils/overloaded.hpp)
+        include/styx/utils/overloaded.hpp
+        include/styx/engine/create_command.hpp
+        src/engine/create_command.cpp
+        include/styx/utils/string_helpers.hpp
+        include/styx/engine/get_command.hpp
+        src/engine/get_command.cpp
+        include/styx/engine/set_command.hpp
+        src/engine/set_command.cpp
+        include/styx/engine/del_command.hpp
+        src/engine/del_command.cpp)
 target_include_directories(styxKV PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/include
 )

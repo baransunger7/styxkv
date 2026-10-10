@@ -1,4 +1,5 @@
 #include "styx/engine/command_dispatcher.hpp"
+#include "styx/utils/string_helpers.hpp"
 #include <algorithm>
 #include <cctype>
 
@@ -20,9 +21,7 @@ styx::common::CommandResult CommandDispatcher::dispatch(std::string_view rawInpu
         start = rawInput.find_first_not_of(delimiters, end);
     }
     std::string cmdName(tokens[0]);
-    std::transform(cmdName.begin(), cmdName.end(), cmdName.begin(), [](unsigned char c) {
-        return std::tolower(c);
-    });
+    cmdName = styx::utils::toLower(cmdName);
     auto it = commands_.find(cmdName);
     if (it == commands_.end()) {
         return styx::common::CommandResult{styx::common::CommandStatus::Error,"ERR Unknown command"};
@@ -32,7 +31,6 @@ styx::common::CommandResult CommandDispatcher::dispatch(std::string_view rawInpu
     for (size_t i = 1; i < tokens.size(); ++i) {
         args.emplace_back(tokens[i]);
     }    return it->second->execute(args, table);
-    //devam edilcek
 }
 
 void CommandDispatcher::registerCommand(std::string name, std::unique_ptr<Command> cmd) {

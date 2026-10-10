@@ -28,29 +28,29 @@ namespace styx::storage {
         return hashedKey & (capacity_ - 1);
     }
 
-    std::optional<styx::common::DbValue> HashTable::get(const std::string &key) const {
+    std::optional<styx::common::Entry*> HashTable::get(const std::string &key) const {
         size_t index = getBucketIndex(key);
         auto curr = buckets_[index];
         while (curr != nullptr) {
             if (curr->key == key) {
-                return curr->value;
+                return &(curr->entry);
             }
             curr = curr->next;
         }
         return std::nullopt;
     }
 
-    void HashTable::set(const std::string &key, common::DbValue value) {
+    void HashTable::set(const std::string &key, common::Entry entry) {
         size_t index = getBucketIndex(key);
         auto curr = buckets_[index];
         while (curr != nullptr) {
             if (curr->key == key) {
-                curr->value = value;
+                curr->entry = entry;
                 return;
             }
             curr = curr->next;
         }
-        buckets_[index] = new HashNode(key, value, buckets_[index]);
+        buckets_[index] = new HashNode(key, entry, buckets_[index]);
         size_++;
     }
 
