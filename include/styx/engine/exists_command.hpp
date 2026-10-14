@@ -1,8 +1,10 @@
-//
-// Created by baran on 10/14/26.
-//
+#include "styx/engine/command.hpp"
 
-#ifndef STYXKV_EXISTS_COMMAND_HPP
-#define STYXKV_EXISTS_COMMAND_HPP
 
-#endif //STYXKV_EXISTS_COMMAND_HPP
+namespace styx::engine {
+class ExistsCommand : public Command {
+public:
+    ExistsCommand() = default;
+    styx::common::CommandResult execute(const std::vector<std::string> &args, styx::storage::HashTable &table) override;
+};
+}

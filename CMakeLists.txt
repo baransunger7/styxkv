@@ -24,7 +24,11 @@ add_executable(styxKV
         include/styx/engine/set_command.hpp
         src/engine/set_command.cpp
         include/styx/engine/del_command.hpp
-        src/engine/del_command.cpp)
+        src/engine/del_command.cpp
+        include/styx/engine/type_command.hpp
+        src/engine/type_command.cpp
+        include/styx/engine/exists_command.hpp
+        src/engine/exists_command.cpp)
 target_include_directories(styxKV PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
