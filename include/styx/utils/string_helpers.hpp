@@ -1,6 +1,8 @@
 #pragma once
 #include <algorithm>
+#include <cstdint>
 #include <string>
+#include <vector>
 
 namespace styx::utils {
     inline std::string toLower(std::string str) {
@@ -8,4 +10,11 @@ namespace styx::utils {
             [](unsigned char c) { return std::tolower(c); });
         return str;
     }
+    std::vector<std::string> tokenize(std::string_view str);
+
+    enum class State : uint8_t{
+        Delimiter,
+        Normal,
+        Quoted,
+    };
 }
