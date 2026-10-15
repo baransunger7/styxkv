@@ -80,6 +80,20 @@ namespace styx::storage {
         }
         return false;
     }
+
+    std::vector<std::string> HashTable::keys() const {
+        std::vector<std::string> keys;
+        keys.reserve(size_);
+        for (auto& it : buckets_) {
+            auto curr = it;
+            while (curr != nullptr) {
+                keys.push_back(curr->key);
+                curr = curr->next;
+            }
+        }
+        return keys;
+    }
+
     uint64_t HashTable::hashFunc(const std::string &key) const {
         return XXH64(key.data(), key.size(),0);
     }

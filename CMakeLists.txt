@@ -29,7 +29,9 @@ add_executable(styxKV
         src/engine/type_command.cpp
         include/styx/engine/exists_command.hpp
         src/engine/exists_command.cpp
-        src/utils/string_helpers.cpp)
+        src/utils/string_helpers.cpp
+        include/styx/engine/keys_command.hpp
+        src/engine/keys_command.cpp)
 target_include_directories(styxKV PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/include
 )

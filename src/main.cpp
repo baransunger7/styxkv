@@ -9,6 +9,7 @@
 #include "styx/engine/command_dispatcher.hpp"
 #include "styx/engine/del_command.hpp"
 #include "styx/engine/exists_command.hpp"
+#include "styx/engine/keys_command.hpp"
 #include "styx/engine/set_command.hpp"
 #include "styx/engine/type_command.hpp"
 
@@ -25,6 +26,7 @@ int main() {
     dispatcher.registerCommand("del",std::make_unique<styx::engine::DelCommand>());
     dispatcher.registerCommand("type",std::make_unique<styx::engine::TypeCommand>());
     dispatcher.registerCommand("exists",std::make_unique<styx::engine::ExistsCommand>());
+    dispatcher.registerCommand("keys",std::make_unique<styx::engine::KeysCommand>());
     std::cout << "StyxKV CLI (type 'exit' to quit)\n";
     std::cout << "--------------------------------\n";
 

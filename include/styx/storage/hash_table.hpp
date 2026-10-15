@@ -26,6 +26,7 @@ public:
     void set(const std::string& key,common::Entry entry);
     std::optional<styx::common::Entry*> get(const std::string& key) const;
     bool del(const std::string& key);
+    [[nodiscard]] std::vector<std::string> keys() const;
 
 private:
     std::vector<HashNode*> buckets_;
