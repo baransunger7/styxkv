@@ -10,6 +10,10 @@
 #include "styx/engine/del_command.hpp"
 #include "styx/engine/exists_command.hpp"
 #include "styx/engine/keys_command.hpp"
+#include "styx/engine/lpop_command.hpp"
+#include "styx/engine/lpush_command.hpp"
+#include "styx/engine/rpop_command.hpp"
+#include "styx/engine/rpush_command.hpp"
 #include "styx/engine/set_command.hpp"
 #include "styx/engine/type_command.hpp"
 
@@ -27,6 +31,10 @@ int main() {
     dispatcher.registerCommand("type",std::make_unique<styx::engine::TypeCommand>());
     dispatcher.registerCommand("exists",std::make_unique<styx::engine::ExistsCommand>());
     dispatcher.registerCommand("keys",std::make_unique<styx::engine::KeysCommand>());
+    dispatcher.registerCommand("lpush",std::make_unique<styx::engine::LPushCommand>());
+    dispatcher.registerCommand("rpush",std::make_unique<styx::engine::RPushCommand>());
+    dispatcher.registerCommand("lpop",std::make_unique<styx::engine::LPopCommand>());
+    dispatcher.registerCommand("rpop",std::make_unique<styx::engine::RPopCommand>());
     std::cout << "StyxKV CLI (type 'exit' to quit)\n";
     std::cout << "--------------------------------\n";
 
