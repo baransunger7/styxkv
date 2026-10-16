@@ -39,7 +39,11 @@ add_executable(styxKV
         include/styx/engine/lpop_command.hpp
         src/engine/lpop_command.cpp
         include/styx/engine/rpop_command.hpp
-        src/engine/rpop_command.cpp)
+        src/engine/rpop_command.cpp
+        include/styx/engine/sadd_command.hpp
+        src/engine/sadd_command.cpp
+        include/styx/engine/srem_command.hpp
+        src/engine/srem_command.cpp)
 target_include_directories(styxKV PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/include
 )

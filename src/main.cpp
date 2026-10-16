@@ -14,7 +14,9 @@
 #include "styx/engine/lpush_command.hpp"
 #include "styx/engine/rpop_command.hpp"
 #include "styx/engine/rpush_command.hpp"
+#include "styx/engine/sadd_command.hpp"
 #include "styx/engine/set_command.hpp"
+#include "styx/engine/srem_command.hpp"
 #include "styx/engine/type_command.hpp"
 
 
@@ -35,6 +37,8 @@ int main() {
     dispatcher.registerCommand("rpush",std::make_unique<styx::engine::RPushCommand>());
     dispatcher.registerCommand("lpop",std::make_unique<styx::engine::LPopCommand>());
     dispatcher.registerCommand("rpop",std::make_unique<styx::engine::RPopCommand>());
+    dispatcher.registerCommand("sadd",std::make_unique<styx::engine::SAddCommand>());
+    dispatcher.registerCommand("srem",std::make_unique<styx::engine::SRemCommand>());
     std::cout << "StyxKV CLI (type 'exit' to quit)\n";
     std::cout << "--------------------------------\n";
 
