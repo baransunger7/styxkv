@@ -24,7 +24,7 @@ public:
     HashTable& operator=(const HashTable&) = delete;
 
     void set(const std::string& key,common::Entry entry);
-    std::optional<styx::common::Entry*> get(const std::string& key) const;
+    std::optional<styx::common::Entry*> get(const std::string& key);
     bool del(const std::string& key);
     [[nodiscard]] std::vector<std::string> keys() const;
 

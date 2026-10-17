@@ -2,6 +2,7 @@
 #include <bit>
 
 #define XXH_INLINE_ALL
+#include "styx/utils/time_utils.hpp"
 #include "styx/utils/xxhash.h"
 
 namespace styx::storage {
@@ -28,11 +29,16 @@ namespace styx::storage {
         return hashedKey & (capacity_ - 1);
     }
 
-    std::optional<styx::common::Entry*> HashTable::get(const std::string &key) const {
+    std::optional<styx::common::Entry*> HashTable::get(const std::string &key)  {
         size_t index = getBucketIndex(key);
+
         auto curr = buckets_[index];
         while (curr != nullptr) {
             if (curr->key == key) {
+                if (curr->entry.expiresAt > 0 && utils::currentTimeMillis() >= curr->entry.expiresAt) {
+                    this->del(curr->key);
+                    return std::nullopt;
+                }
                 return &(curr->entry);
             }
             curr = curr->next;

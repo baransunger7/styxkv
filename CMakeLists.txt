@@ -43,7 +43,12 @@ add_executable(styxKV
         include/styx/engine/sadd_command.hpp
         src/engine/sadd_command.cpp
         include/styx/engine/srem_command.hpp
-        src/engine/srem_command.cpp)
+        src/engine/srem_command.cpp
+        include/styx/utils/time_utils.hpp
+        include/styx/engine/expire_command.hpp
+        src/engine/expire_command.cpp
+        include/styx/engine/ttl_command.hpp
+        src/engine/ttl_command.cpp)
 target_include_directories(styxKV PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/include
 )

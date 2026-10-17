@@ -19,7 +19,7 @@ using DbValue = std::variant<DbList, DbSet, DbHash, DbString>;
 
 struct Entry {
     DbValue value;
-    uint64_t expires_at{0};
+    uint64_t expiresAt{0};
     uint8_t flags{0};
 };
 

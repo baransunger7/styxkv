@@ -9,6 +9,7 @@
 #include "styx/engine/command_dispatcher.hpp"
 #include "styx/engine/del_command.hpp"
 #include "styx/engine/exists_command.hpp"
+#include "styx/engine/expire_command.hpp"
 #include "styx/engine/keys_command.hpp"
 #include "styx/engine/lpop_command.hpp"
 #include "styx/engine/lpush_command.hpp"
@@ -17,6 +18,7 @@
 #include "styx/engine/sadd_command.hpp"
 #include "styx/engine/set_command.hpp"
 #include "styx/engine/srem_command.hpp"
+#include "styx/engine/ttl_command.hpp"
 #include "styx/engine/type_command.hpp"
 
 
@@ -39,6 +41,8 @@ int main() {
     dispatcher.registerCommand("rpop",std::make_unique<styx::engine::RPopCommand>());
     dispatcher.registerCommand("sadd",std::make_unique<styx::engine::SAddCommand>());
     dispatcher.registerCommand("srem",std::make_unique<styx::engine::SRemCommand>());
+    dispatcher.registerCommand("expire",std::make_unique<styx::engine::ExpireCommand>());
+    dispatcher.registerCommand("ttl",std::make_unique<styx::engine::TTLCommand>());
     std::cout << "StyxKV CLI (type 'exit' to quit)\n";
     std::cout << "--------------------------------\n";
 
