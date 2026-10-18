@@ -24,6 +24,10 @@ namespace styx::storage {
         }
     }
 
+    void HashTable::setOnKeyDeleted(DeleteListener listener) {
+        onKeyDeleted_ = std::move(listener);
+    }
+
     size_t HashTable::getBucketIndex(const std::string &key) const {
         uint64_t hashedKey = hashFunc(key);
         return hashedKey & (capacity_ - 1);
@@ -36,7 +40,11 @@ namespace styx::storage {
         while (curr != nullptr) {
             if (curr->key == key) {
                 if (curr->entry.expiresAt > 0 && utils::currentTimeMillis() >= curr->entry.expiresAt) {
+                    std::string expiredKey = curr->key;
                     this->del(curr->key);
+                    if (onKeyDeleted_) {
+                        onKeyDeleted_(expiredKey);
+                    }
                     return std::nullopt;
                 }
                 return &(curr->entry);

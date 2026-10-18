@@ -20,8 +20,15 @@
 #include "styx/engine/srem_command.hpp"
 #include "styx/engine/ttl_command.hpp"
 #include "styx/engine/type_command.hpp"
+#include "styx/storage/persistence_manager.hpp"
+#include  "styx/utils/string_helpers.hpp"
 
-
+bool isMutatingCommand(std::string cmd) {
+    cmd = styx::utils::toLower(cmd);
+    return  cmd == "set" || cmd == "create" || cmd == "del" ||
+            cmd == "lpush" || cmd == "rpush" || cmd == "lpop" || cmd == "rpop" ||
+            cmd == "expire" || cmd == "sadd" || cmd == "srem";
+}
 
 
 int main() {
@@ -46,13 +53,25 @@ int main() {
     std::cout << "StyxKV CLI (type 'exit' to quit)\n";
     std::cout << "--------------------------------\n";
 
+    styx::storage::PersistenceManager pm{"styx.aof"};
+    pm.recover(table,dispatcher);
     std::string line;
     while (true) {
         std::cout << "styx> ";
         if (!std::getline(std::cin, line)) break;
-        if (line.empty()) continue;
-        if (line == "exit" || line == "quit") break;
+        std::vector<std::string> tokens = styx::utils::tokenize(line);
+        if (tokens.empty()) continue;
+        std::string cmd = styx::utils::toLower(tokens[0]);
+        if (cmd == "exit" || cmd == "quit") break;
         auto result = dispatcher.dispatch(line,table);
+        if (result.status == styx::common::CommandStatus::Ok && isMutatingCommand(cmd)) {
+            pm.logCommand(line);
+        }
+
+        table.setOnKeyDeleted([&pm](const std::string& key) {
+            pm.logCommand("del "  + key);
+        });
+
         std::cout << result.message << std::endl;
 
     }

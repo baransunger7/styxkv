@@ -1,10 +1,12 @@
 #pragma once
 
+#include <functional>
 #include <optional>
 #include <string>
 
 #include "styx/common/types.hpp"
 
+using DeleteListener = std::function<void(const std::string&)>;
 namespace styx::storage {
 
 struct HashNode {
@@ -27,9 +29,12 @@ public:
     std::optional<styx::common::Entry*> get(const std::string& key);
     bool del(const std::string& key);
     [[nodiscard]] std::vector<std::string> keys() const;
+    void setOnKeyDeleted(DeleteListener listener);
+
 
 private:
     std::vector<HashNode*> buckets_;
+    DeleteListener onKeyDeleted_;
     size_t capacity_;
     size_t size_{0};
     uint64_t hashFunc(const std::string& key) const;
