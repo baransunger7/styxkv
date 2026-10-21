@@ -50,7 +50,9 @@ add_executable(styxKV
         include/styx/engine/ttl_command.hpp
         src/engine/ttl_command.cpp
         include/styx/storage/persistence_manager.hpp
-        src/storage/persistence_manager.cpp)
+        src/storage/persistence_manager.cpp
+        include/styx/engine/expireat_command.hpp
+        src/engine/expireat_command.cpp)
 target_include_directories(styxKV PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
